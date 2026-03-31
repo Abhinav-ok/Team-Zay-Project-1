@@ -64,5 +64,25 @@ namespace PurchasingSystem.BLL
 
             return result;
         }
+        public List<PurchaseOrderItemView> GetSuggestedOrderItems(int vendorID)
+        {
+            return _context.Parts
+                .Where(x => x.VendorId == vendorID
+                            && x.RemoveFromViewFlag == false
+                            && x.ReorderLevel > (x.QuantityOnHand + x.QuantityOnOrder))
+                .OrderBy(x => x.Description)
+                .Select(x => new PurchaseOrderItemView
+                {
+                    PartID = x.PartId,
+                    Description = x.Description,
+                    QOH = x.QuantityOnHand,
+                    QOO = x.QuantityOnOrder,
+                    ROL = x.ReorderLevel,
+                    QTO = x.ReorderLevel - (x.QuantityOnHand + x.QuantityOnOrder),
+                    PurchasePrice = x.PurchasePrice,
+                    VendorPartNumber = string.Empty
+                })
+                .ToList();
+        }
     }
 }

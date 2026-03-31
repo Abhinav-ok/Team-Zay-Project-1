@@ -37,6 +37,10 @@ namespace ProjectWebApp.Components.Pages
             {
                 workspace.PurchaseOrderID = existingPOID.Value;
             }
+            else
+            {
+                workspace.CurrentOrderItems = PurchasingService.GetSuggestedOrderItems(VendorID);
+            }
         }
 
         #endregion

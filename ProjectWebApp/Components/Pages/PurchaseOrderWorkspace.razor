@@ -23,3 +23,25 @@
 <MudText Typo="Typo.h6">
     Purchase Order ID: @workspace.PurchaseOrderID
 </MudText>
+<MudText Typo="Typo.h5">Suggested / Current Order Items</MudText>
+
+<MudTable Items="workspace.CurrentOrderItems" Hover="true" Dense="true" Striped="true">
+    <HeaderContent>
+        <MudTh>Part ID</MudTh>
+        <MudTh>Description</MudTh>
+        <MudTh>QOH</MudTh>
+        <MudTh>QOO</MudTh>
+        <MudTh>ROL</MudTh>
+        <MudTh>QTO</MudTh>
+        <MudTh>Price</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.PartID</MudTd>
+        <MudTd>@context.Description</MudTd>
+        <MudTd>@context.QOH</MudTd>
+        <MudTd>@context.QOO</MudTd>
+        <MudTd>@context.ROL</MudTd>
+        <MudTd>@context.QTO</MudTd>
+        <MudTd>@context.PurchasePrice</MudTd>
+    </RowTemplate>
+</MudTable>
