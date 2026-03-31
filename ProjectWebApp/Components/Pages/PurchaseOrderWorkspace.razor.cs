@@ -112,6 +112,17 @@ namespace ProjectWebApp.Components.Pages
 
             workspace.Total = workspace.SubTotal + workspace.TaxAmount;
         }
+        protected void UpdateQuantity(PurchaseOrderItemView item, int quantity)
+        {
+            item.QTO = quantity;
+            CalculateTotals();
+        }
+
+        protected void UpdatePrice(PurchaseOrderItemView item, decimal price)
+        {
+            item.PurchasePrice = price;
+            CalculateTotals();
+        }
 
         #endregion
     }

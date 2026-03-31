@@ -42,8 +42,20 @@
         <MudTd>@context.QOH</MudTd>
         <MudTd>@context.QOO</MudTd>
         <MudTd>@context.ROL</MudTd>
-        <MudTd>@context.QTO</MudTd>
-        <MudTd>@context.PurchasePrice</MudTd>
+        <MudTd>
+            <MudNumericField T="int"
+                             Value="context.QTO"
+                             ValueChanged="@(x => UpdateQuantity(context, x))"
+                             Min="0"
+                             Immediate="true" />
+</MudTd>
+<MudTd>
+            <MudNumericField T="decimal"
+                             Value="context.PurchasePrice"
+                             ValueChanged="@(x => UpdatePrice(context, x))"
+                             Min="0"
+                             Immediate="true" />
+</MudTd>
         <MudTd>
             <MudButton Variant="Variant.Filled"
                        Color="Color.Error"
