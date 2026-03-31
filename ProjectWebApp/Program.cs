@@ -6,6 +6,7 @@ using MudBlazor.Services;
 using ProjectWebApp.Components;
 using ProjectWebApp.Components.Account;
 using ProjectWebApp.Data;
+using PurchasingSystem.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,12 +33,17 @@ builder.Services.AddAuthentication(options =>
 var connectionStringEBike = builder.Configuration.GetConnectionString("eBikeDB");
 // Auth Connection String
 var connectionStringAuth = builder.Configuration.GetConnectionString("AuthDB");
+// Register Purchasing dependencies
+builder.Services.AddPurchasingSystemDependencies(options => options.UseSqlServer(connectionStringEBike));
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionStringAuth));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+
+//Connection String
+
     //Adding the role manager must come before the AddEntityFrameworkStores or this will fail
     //Modified for DMIT2018
     .AddRoles<IdentityRole>()

@@ -1,0 +1,31 @@
+﻿@page "/vendorselection"
+@using MudBlazor
+
+<PageTitle>Vendor Selection</PageTitle>
+
+<MudText Typo="Typo.h3">Vendor Selection</MudText>
+
+<MudTable Items="vendors" Hover="true" Dense="true" Striped="true">
+    <HeaderContent>
+        <MudTh>Company</MudTh>
+        <MudTh>Address</MudTh>
+        <MudTh>City</MudTh>
+        <MudTh>Province</MudTh>
+        <MudTh>Postal Code</MudTh>
+        <MudTh>Phone</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.VendorName</MudTd>
+        <MudTd>@context.Address</MudTd>
+        <MudTd>@context.City</MudTd>
+        <MudTd>@context.ProvinceID</MudTd>
+        <MudTd>@context.PostalCode</MudTd>
+        <MudTd>@context.Phone</MudTd>
+        <MudTd>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => SelectVendor(context.VendorID))">
+                Select
+            </MudButton>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
