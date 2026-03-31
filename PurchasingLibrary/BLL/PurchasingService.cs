@@ -84,5 +84,36 @@ namespace PurchasingSystem.BLL
                 })
                 .ToList();
         }
+        public List<PurchaseOrderItemView> GetCurrentOrderItems(int purchaseOrderID)
+        {
+            return _context.PurchaseOrderDetails .Where(x => x.PurchaseOrderId == purchaseOrderID&& x.RemoveFromViewFlag == false)
+                .OrderBy(x => x.Part.Description)
+                .Select(x => new PurchaseOrderItemView
+                {
+                    PartID = x.PartId,
+                    Description = x.Part.Description,
+                    QOH = x.Part.QuantityOnHand,
+                    QOO = x.Part.QuantityOnOrder,
+                    ROL = x.Part.ReorderLevel,
+                    QTO = x.Quantity,
+                    PurchasePrice = x.PurchasePrice,
+                    VendorPartNumber = x.VendorPartNumber
+                }).ToList();
+        }
+        public List<AvailablePurchaseItemView> GetAvailableParts(int vendorID, List<PurchaseOrderItemView> currentOrderItems)
+        {
+            var currentPartIDs = currentOrderItems.Select(x => x.PartID).ToList();
+            return _context.Parts.Where(x => x.VendorId == vendorID && x.RemoveFromViewFlag == false && !currentPartIDs.Contains(x.PartId))
+                .OrderBy(x => x.Description).Select(x => new AvailablePurchaseItemView
+                {
+                    PartID = x.PartId,
+                    Description = x.Description,
+                    QOH = x.QuantityOnHand,
+                    QOO = x.QuantityOnOrder,
+                    ROL = x.ReorderLevel,
+                    Buffer = 0,
+                    PurchasePrice = x.PurchasePrice
+                }).ToList();
+        }
     }
 }

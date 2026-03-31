@@ -45,3 +45,25 @@
         <MudTd>@context.PurchasePrice</MudTd>
     </RowTemplate>
 </MudTable>
+<MudText Typo="Typo.h5">Available Parts</MudText>
+
+<MudTable Items="workspace.AvailableParts" Hover="true" Dense="true" Striped="true">
+    <HeaderContent>
+        <MudTh>Part ID</MudTh>
+        <MudTh>Description</MudTh>
+        <MudTh>QOH</MudTh>
+        <MudTh>QOO</MudTh>
+        <MudTh>ROL</MudTh>
+        <MudTh>Buffer</MudTh>
+        <MudTh>Price</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.PartID</MudTd>
+        <MudTd>@context.Description</MudTd>
+        <MudTd>@context.QOH</MudTd>
+        <MudTd>@context.QOO</MudTd>
+        <MudTd>@context.ROL</MudTd>
+        <MudTd>@context.Buffer</MudTd>
+        <MudTd>@context.PurchasePrice</MudTd>
+    </RowTemplate>
+</MudTable>

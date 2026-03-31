@@ -36,11 +36,14 @@ namespace ProjectWebApp.Components.Pages
             if (existingPOID != null)
             {
                 workspace.PurchaseOrderID = existingPOID.Value;
+                workspace.CurrentOrderItems = PurchasingService.GetCurrentOrderItems(existingPOID.Value);
             }
             else
             {
                 workspace.CurrentOrderItems = PurchasingService.GetSuggestedOrderItems(VendorID);
             }
+
+            workspace.AvailableParts = PurchasingService.GetAvailableParts(VendorID, workspace.CurrentOrderItems);
         }
 
         #endregion
