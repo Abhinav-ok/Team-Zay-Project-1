@@ -16,9 +16,9 @@
 
 <MudText Typo="Typo.h6">Order Totals</MudText>
 
-<MudText>Subtotal: @workspace.SubTotal</MudText>
-<MudText>GST: @workspace.TaxAmount</MudText>
-<MudText>Total: @workspace.Total</MudText>
+<MudText>Subtotal: @workspace.SubTotal.ToString("0.00")</MudText>
+<MudText>GST: @workspace.TaxAmount.ToString("0.00")</MudText>
+<MudText>Total: @workspace.Total.ToString("0.00")</MudText>
 
 <MudText Typo="Typo.h6">
     Purchase Order ID: @workspace.PurchaseOrderID

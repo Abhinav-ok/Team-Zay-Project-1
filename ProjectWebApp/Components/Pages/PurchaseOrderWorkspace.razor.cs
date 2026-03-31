@@ -46,6 +46,7 @@ namespace ProjectWebApp.Components.Pages
             }
 
             workspace.AvailableParts = PurchasingService.GetAvailableParts(VendorID, workspace.CurrentOrderItems);
+            CalculateTotals();
         }
         protected void AddPart(int partID)
         {
@@ -72,7 +73,9 @@ namespace ProjectWebApp.Components.Pages
                 workspace.AvailableParts.Remove(selectedPart);
 
                 workspace.AvailableParts = workspace.AvailableParts.OrderBy(x => x.Description).ToList();
+
             }
+            CalculateTotals();
         }
 
         protected void RemovePart(int partID)
@@ -100,6 +103,14 @@ namespace ProjectWebApp.Components.Pages
                 workspace.CurrentOrderItems = workspace.CurrentOrderItems
                     .OrderBy(x => x.Description).ToList();
             }
+            CalculateTotals();
+        }
+        protected void CalculateTotals()
+        {
+            workspace.SubTotal = workspace.CurrentOrderItems.Sum(x => x.QTO * x.PurchasePrice);
+            workspace.TaxAmount = workspace.SubTotal * 0.05m;
+
+            workspace.Total = workspace.SubTotal + workspace.TaxAmount;
         }
 
         #endregion
