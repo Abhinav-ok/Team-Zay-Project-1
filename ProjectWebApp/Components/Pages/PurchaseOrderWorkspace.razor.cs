@@ -13,6 +13,11 @@ namespace ProjectWebApp.Components.Pages
 
         protected PurchaseOrderWorkspaceView workspace = new();
 
+        //To update
+        protected string validationMessage = string.Empty;
+        protected bool canSave = false;
+        protected bool canPlace = false;
+
         #endregion
 
         #region Properties
@@ -47,6 +52,7 @@ namespace ProjectWebApp.Components.Pages
 
             workspace.AvailableParts = PurchasingService.GetAvailableParts(VendorID, workspace.CurrentOrderItems);
             CalculateTotals();
+            ValidateWorkspace();
         }
         protected void AddPart(int partID)
         {
@@ -76,6 +82,7 @@ namespace ProjectWebApp.Components.Pages
 
             }
             CalculateTotals();
+            ValidateWorkspace();
         }
 
         protected void RemovePart(int partID)
@@ -104,6 +111,7 @@ namespace ProjectWebApp.Components.Pages
                     .OrderBy(x => x.Description).ToList();
             }
             CalculateTotals();
+            ValidateWorkspace();
         }
         protected void CalculateTotals()
         {
@@ -116,14 +124,56 @@ namespace ProjectWebApp.Components.Pages
         {
             item.QTO = quantity;
             CalculateTotals();
+            ValidateWorkspace();
         }
 
         protected void UpdatePrice(PurchaseOrderItemView item, decimal price)
         {
             item.PurchasePrice = price;
             CalculateTotals();
+            ValidateWorkspace();
         }
 
+
+        protected void ValidateWorkspace()
+        {
+            validationMessage = string.Empty;
+
+            if (workspace.CurrentOrderItems == null || workspace.CurrentOrderItems.Count == 0)
+            {
+                validationMessage = "At least one part must exist in the order.";
+                canSave = false;
+                canPlace = false;
+                return;
+            }
+
+            if (workspace.CurrentOrderItems.Any(x => x.QTO <= 0))
+            {
+                validationMessage = "All order items must have a quantity greater than 0.";
+                canSave = false;
+                canPlace = false;
+                return;
+            }
+
+            if (workspace.CurrentOrderItems.Any(x => x.PurchasePrice < 0))
+            {
+                validationMessage = "Purchase price cannot be less than 0.";
+                canSave = false;
+                canPlace = false;
+                return;
+            }
+
+            canSave = true;
+
+            if (workspace.PurchaseOrderID > 0)
+            {
+                canPlace = true;
+            }
+            else
+            {
+                canPlace = false;
+            }
+        }
         #endregion
     }
 }

@@ -19,6 +19,34 @@
 <MudText>Subtotal: @workspace.SubTotal.ToString("0.00")</MudText>
 <MudText>GST: @workspace.TaxAmount.ToString("0.00")</MudText>
 <MudText>Total: @workspace.Total.ToString("0.00")</MudText>
+<MudText Typo="Typo.h6">Actions</MudText>
+
+<MudButton Variant="Variant.Filled"
+           Color="Color.Primary"
+           Disabled="@(!canSave)">
+    Save / Update
+</MudButton>
+
+<MudButton Variant="Variant.Filled"
+           Color="Color.Secondary"
+           Disabled="@(!canPlace)">
+    Place
+</MudButton>
+
+<MudButton Variant="Variant.Filled"
+           Color="Color.Error">
+    Delete
+</MudButton>
+
+<MudButton Variant="Variant.Filled"
+           Color="Color.Info">
+    Clear
+</MudButton>
+
+@if (!string.IsNullOrWhiteSpace(validationMessage))
+{
+    <MudText Typo="Typo.body1">@validationMessage</MudText>
+}
 
 <MudText Typo="Typo.h6">
     Purchase Order ID: @workspace.PurchaseOrderID
