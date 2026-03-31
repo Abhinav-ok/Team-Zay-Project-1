@@ -2,6 +2,8 @@
 using PurchasingSystem.BLL;
 using PurchasingSystem.ViewModels;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ProjectWebApp.Components.Pages
 {
@@ -44,6 +46,60 @@ namespace ProjectWebApp.Components.Pages
             }
 
             workspace.AvailableParts = PurchasingService.GetAvailableParts(VendorID, workspace.CurrentOrderItems);
+        }
+        protected void AddPart(int partID)
+        {
+            var selectedPart = workspace.AvailableParts
+                .Where(x => x.PartID == partID)
+                .FirstOrDefault();
+
+            if (selectedPart != null)
+            {
+                workspace.CurrentOrderItems.Add(new PurchaseOrderItemView
+                {
+                    PartID = selectedPart.PartID,
+                    Description = selectedPart.Description,
+                    QOH = selectedPart.QOH,
+                    QOO = selectedPart.QOO,
+                    ROL = selectedPart.ROL,
+                    QTO = 0,
+                    PurchasePrice = selectedPart.PurchasePrice,
+                    VendorPartNumber = string.Empty
+                });
+
+                workspace.CurrentOrderItems = workspace.CurrentOrderItems.OrderBy(x => x.Description).ToList();
+
+                workspace.AvailableParts.Remove(selectedPart);
+
+                workspace.AvailableParts = workspace.AvailableParts.OrderBy(x => x.Description).ToList();
+            }
+        }
+
+        protected void RemovePart(int partID)
+        {
+            var selectedPart = workspace.CurrentOrderItems.Where(x => x.PartID == partID).FirstOrDefault();
+
+            if (selectedPart != null)
+            {
+                workspace.AvailableParts.Add(new AvailablePurchaseItemView
+                {
+                    PartID = selectedPart.PartID,
+                    Description = selectedPart.Description,
+                    QOH = selectedPart.QOH,
+                    QOO = selectedPart.QOO,
+                    ROL = selectedPart.ROL,
+                    Buffer = 0,
+                    PurchasePrice = selectedPart.PurchasePrice
+                });
+
+                workspace.AvailableParts = workspace.AvailableParts
+                    .OrderBy(x => x.Description) .ToList();
+
+                workspace.CurrentOrderItems.Remove(selectedPart);
+
+                workspace.CurrentOrderItems = workspace.CurrentOrderItems
+                    .OrderBy(x => x.Description).ToList();
+            }
         }
 
         #endregion

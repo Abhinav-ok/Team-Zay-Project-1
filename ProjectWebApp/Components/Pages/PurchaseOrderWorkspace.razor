@@ -34,6 +34,7 @@
         <MudTh>ROL</MudTh>
         <MudTh>QTO</MudTh>
         <MudTh>Price</MudTh>
+        <MudTh>Actions</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>@context.PartID</MudTd>
@@ -43,6 +44,13 @@
         <MudTd>@context.ROL</MudTd>
         <MudTd>@context.QTO</MudTd>
         <MudTd>@context.PurchasePrice</MudTd>
+        <MudTd>
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Error"
+                       OnClick="@(() => RemovePart(context.PartID))">
+                Remove
+            </MudButton>
+        </MudTd>
     </RowTemplate>
 </MudTable>
 <MudText Typo="Typo.h5">Available Parts</MudText>
@@ -56,6 +64,7 @@
         <MudTh>ROL</MudTh>
         <MudTh>Buffer</MudTh>
         <MudTh>Price</MudTh>
+        <MudTh>Actions</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd>@context.PartID</MudTd>
@@ -65,5 +74,12 @@
         <MudTd>@context.ROL</MudTd>
         <MudTd>@context.Buffer</MudTd>
         <MudTd>@context.PurchasePrice</MudTd>
+        <MudTd>
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       OnClick="@(() => AddPart(context.PartID))">
+                Add
+            </MudButton>
+        </MudTd>
     </RowTemplate>
 </MudTable>
