@@ -14,6 +14,9 @@ namespace ProjectWebApp.Components.Pages
         #region Properties
         [Inject]
         protected PurchasingService PurchasingService { get; set; }
+
+        [Inject]
+        protected NavigationManager NavigationManager { get; set; }
         #endregion
         #region Methods
 
@@ -25,9 +28,10 @@ namespace ProjectWebApp.Components.Pages
         }
         protected void SelectVendor(int vendorID)
         {
-            // for screeen two
+            NavigationManager.NavigateTo($"/purchaseorderworkspace/{vendorID}");
         }
+    }
 
         #endregion
-    }
+    
 }
