@@ -29,5 +29,28 @@ namespace PurchasingSystem.BLL
                     PostalCode = x.PostalCode,
                     Phone = x.Phone }).ToList();
         }
+        public PurchaseOrderWorkspaceView GetVendorHeader(int vendorID)
+        {
+            return _context.Vendors
+                .Where(x => x.VendorId == vendorID && x.RemoveFromViewFlag == false)
+                .Select(x => new PurchaseOrderWorkspaceView
+                {
+                    VendorID = x.VendorId,
+                    VendorName = x.VendorName,
+                    Address = x.Address,
+                    City = x.City,
+                    ProvinceID = x.ProvinceId,
+                    PostalCode = x.PostalCode,
+                    Phone = x.Phone,
+                    PurchaseOrderID = 0,
+                    EmployeeID = string.Empty,
+                    SubTotal = 0,
+                    TaxAmount = 0,
+                    Total = 0,
+                    CurrentOrderItems = new List<PurchaseOrderItemView>(),
+                    AvailableParts = new List<AvailablePurchaseItemView>()
+                })
+                .FirstOrDefault();
+        }
     }
 }

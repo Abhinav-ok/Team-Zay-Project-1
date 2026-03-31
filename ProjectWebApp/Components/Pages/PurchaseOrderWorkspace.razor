@@ -1,7 +1,21 @@
 ﻿@page "/purchaseorderworkspace/{VendorID:int}"
+@using MudBlazor
+
 
 <PageTitle>Purchase Order Workspace</PageTitle>
 
 <MudText Typo="Typo.h3">Purchase Order Workspace</MudText>
 
-<MudText>Selected Vendor ID: @VendorID</MudText>
+
+<MudText Typo="Typo.h5">Vendor Information</MudText>
+
+<MudText>Vendor: @workspace.VendorName</MudText>
+<MudText>Phone: @workspace.Phone</MudText>
+<MudText>Address: @workspace.Address</MudText>
+<MudText>@workspace.City, @workspace.ProvinceID @workspace.PostalCode</MudText>
+
+<MudText Typo="Typo.h6">Order Totals</MudText>
+
+<MudText>Subtotal: @workspace.SubTotal</MudText>
+<MudText>GST: @workspace.TaxAmount</MudText>
+<MudText>Total: @workspace.Total</MudText>
