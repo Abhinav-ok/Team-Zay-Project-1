@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PurchasingSystem.Models;
 
-public partial class eBike_2026CleanContext : DbContext
+public partial class eBike_2026CleanContext : DbContext  
 {
     public eBike_2026CleanContext(DbContextOptions<eBike_2026CleanContext> options)
         : base(options)

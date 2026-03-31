@@ -20,7 +20,6 @@ namespace PurchasingSystem.ViewModels
         // Purchase Order Info
         public int PurchaseOrderID { get; set; }
         public string EmployeeID { get; set; }
-
         public decimal SubTotal { get; set; }
         public decimal TaxAmount { get; set; }
         public decimal Total { get; set; }
@@ -30,3 +29,4 @@ namespace PurchasingSystem.ViewModels
         public List<AvailablePurchaseItemView> AvailableParts { get; set; }
     }
 }
+   
