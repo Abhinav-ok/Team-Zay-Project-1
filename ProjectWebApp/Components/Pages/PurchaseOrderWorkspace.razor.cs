@@ -30,6 +30,13 @@ namespace ProjectWebApp.Components.Pages
             await base.OnInitializedAsync();
 
             workspace = PurchasingService.GetVendorHeader(VendorID);
+
+            var existingPOID = PurchasingService.GetExistingPurchaseOrderID(VendorID);
+
+            if (existingPOID != null)
+            {
+                workspace.PurchaseOrderID = existingPOID.Value;
+            }
         }
 
         #endregion

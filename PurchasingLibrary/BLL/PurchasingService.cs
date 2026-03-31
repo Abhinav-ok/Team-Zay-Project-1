@@ -52,5 +52,17 @@ namespace PurchasingSystem.BLL
                 })
                 .FirstOrDefault();
         }
+        public int? GetExistingPurchaseOrderID(int vendorID)
+        {
+            var result = _context.PurchaseOrders
+                .Where(x => x.VendorId == vendorID && x.Closed == false)
+                .Select(x => x.PurchaseOrderId)
+                .FirstOrDefault();
+
+            if (result == 0)
+                return null;
+
+            return result;
+        }
     }
 }
